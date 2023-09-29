@@ -45,6 +45,8 @@ if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
     }, 200);
 
     $("#level-title").text("Game Over, press any key to restart");
+
+    startOver();
 }
 
 }
@@ -75,6 +77,12 @@ setTimeout(function() {
 $("#" + currentColor).removeClass("pressed");
 }, 100);
 };
+
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    started = false;
+}
 
 
 
