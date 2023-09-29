@@ -9,11 +9,11 @@ let started = false;
 let level = 0;
 
 $(document).keypress(function() {
-    if (!started) {
-        $("#level-title").text("Level" + level);
-        nextSequence();
-        started = true;
-    }
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
 });
 
 $(".btn").click(function() {
@@ -21,7 +21,7 @@ $(".btn").click(function() {
     userClickedPattern.push(userChosenColor);
     playSound(userChosenColor);
     animatePress(userChosenColor);
-    checkAnswer(userClickedPattern.lenght-1);
+    checkAnswer(userClickedPattern.length-1);
 });
 
 function checkAnswer(currentLevel) {
@@ -29,12 +29,22 @@ if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
     console.log("success");
 
     if (userClickedPattern.length === gamePattern.length){
-        setTimeout(function (){
+        setTimeout(function () {
             nextSequence();
         }, 1000);
     }
 } else {
+
     console.log ("wrong");
+
+    playSound("wrong");
+
+    $("body").addClass("game-over");
+    setTimeout(function() {
+        $("body").removeClass("game-over")
+    }, 200);
+
+    $("#level-title").text("Game Over, press any key to restart");
 }
 
 }
@@ -43,7 +53,7 @@ if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
 function nextSequence(){
 
     userClickedPattern = [];
-    
+
     level++;
     $('#level-title').text("Level" + level);
  let randomNumber = Math.floor(Math.random() * 4);
@@ -61,7 +71,7 @@ function playSound(name) {
 
 function animatePress(currentColor){
 $("#" + currentColor).addClass("pressed");
-setTimeout(function(){
+setTimeout(function() {
 $("#" + currentColor).removeClass("pressed");
 }, 100);
 };
